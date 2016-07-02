@@ -1,0 +1,24 @@
+language: node_js
+node_js:
+- 4
+- 5
+- 6
+os:
+- linux
+- osx
+notifications:
+  email: false
+  webhooks:
+    urls:
+    - https://webhooks.gitter.im/e/54f8a1e753f859f5ca1a
+    on_start: never
+    on_failure: change
+deploy:
+  provider: npm
+  email: jimmy.aumard@gmail.com
+  api_key:
+    secure: ULP6yVa37xQ3vogwzfSybVliAt6VwptdoSD4bxO6pFaFzuw+2Ezh1UOR9cien8MlouAFGWO3LmvxeHjPpvRWHZr+ntOR/I2OGb1OfK0h71frc7IbxgP5ppcoQivBVJsbfSSug4SNVfPV2Y9cKyRWbWePiTusA0vPN9LQFjO8VO0J5E1SHEBrjt/+KdT3eMTzPvG+NODHoon4nFqJ6BRphVzlTlzHxwN2qg2JdCm8te2D8D4CduHBEydqUpVLgloWKDM+QXqR9XL6nIzF7LN0lScYXqz3Io+lPq98jxC1yl0IdQGfXuTIyvj/KLQYpOiHeNFm00wAMC8SoCx7j92M4pRv7dsgBsRNqtRYZFVAeIs8r4QNy41n8mToA01Nx95GpeNkvE8vZzum30vnJqWwbdKNx9dVcNE31+dFt4euYvPCg3Fsw16wrpTKfztvkTPe2WDj90x3zSt246eRZIBtwbCwDhk6DiLsC4EWlN7xtN8gcjWjess1vW457t/+VWd/am2vaUwlyWF8U+rlVVT/OfdX55Ab+QiXa7qkEU+ojkpxVq0odcjpBN6gty+5BXM4fB1ynsRtfOAoNvxG8+a/h71wXKZHaMSmlziX+eTnO/xzRTfo5ujRVN5Lrcjm2rruxxAjwnVTELHu5tvSPYEaatq4nIKuSU2+OZYM+qsIbsI=
+  on:
+      tags: true
+      repo: jaumard/trailpack-acl
+      node: 6

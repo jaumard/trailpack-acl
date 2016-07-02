@@ -1,0 +1,63 @@
+{
+  "name": "trailpack-acl",
+  "version": "1.0.0-beta-1",
+  "description": "Trailpack to manage permission on Models, Routes or whatever you want",
+  "homepage": "",
+  "author": {
+    "name": "Jimmy Aumard",
+    "email": "jimmy.aumard@gmail.com",
+    "url": "https://github.com/jaumard"
+  },
+  "contributors": [
+    {
+      "name": "Jimmy Aumard",
+      "url": "https://github.com/jaumard"
+    }
+  ],
+  "main": "index.js",
+  "keywords": [
+    "trailpack",
+    "trails",
+    "trailjs",
+    "permissions",
+    "acl"
+  ],
+  "dependencies": {
+    "joi": "^8.4.2",
+    "lodash": "^4.13.1",
+    "trailpack": "^1.0.4",
+    "trails-model": "^1.0.0-beta-2",
+    "trails-policy": "^1.0.1",
+    "trails-service": "^1.0.0-beta-2"
+  },
+  "devDependencies": {
+    "eslint": "^3.0.0",
+    "eslint-config-trails": "^1.0.7",
+    "express": "^4.14.0",
+    "mocha": "^2.5.3",
+    "passport-local": "^1.0.0",
+    "semantic-release": "^4.3.5",
+    "smokesignals": "^1.2.2",
+    "sqlite3": "^3.1.4",
+    "supertest": "^1.2.0",
+    "trailpack-core": "^1.0.0",
+    "trailpack-express": "^1.0.8",
+    "trailpack-footprints": "^1.0.1",
+    "trailpack-passport": "^1.0.0-beta-9",
+    "trailpack-router": "^1.0.7",
+    "trailpack-sequelize": "^1.0.3",
+    "trails": "^1.0.4",
+    "trails-controller": "^1.0.0-beta-2"
+  },
+  "scripts": {
+    "test": "eslint --fix . && mocha"
+  },
+  "engines": {
+    "node": ">= 4.0.0"
+  },
+  "eslintConfig": {
+    "extends": "trails"
+  },
+  "repository": "jaumard/trailpack-acl",
+  "license": "MIT"
+}

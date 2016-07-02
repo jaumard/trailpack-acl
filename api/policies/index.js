@@ -1,0 +1,1 @@
+exports.CheckPermissions = require('./CheckPermissions')

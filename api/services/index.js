@@ -1,0 +1,1 @@
+exports.PermissionService = require('./PermissionService')
