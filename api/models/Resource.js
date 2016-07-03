@@ -26,7 +26,8 @@ module.exports = class Resource extends Model {
     const sEnum = Sequelize.ENUM
     return {
       type: {
-        type: sEnum('model', 'controller', 'route', 'other'),
+        type: sEnum('model', 'route', 'other'),
+        defaultValue: 'other',
         allowNull: false
       },
       publicName: {
@@ -41,6 +42,11 @@ module.exports = class Resource extends Model {
       description: {
         type: Sequelize.STRING,
         allowNull: true
+      },
+      checkOwners: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+        allowNull: false
       }
     }
   }

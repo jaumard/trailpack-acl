@@ -128,6 +128,72 @@ fixtures: {
   }
 ```
 
+#### Owner permissions
+This trailpack can manage owner permissions on model instance, to do this you need to declare your model as resource like this : 
+```
+{
+    type: 'model',
+    name: 'modelName',
+    checkOwners: true,
+    publicName: 'Model name'
+}
+```
+You can create this resource with sequelize model or with fixtures options.
+
+Then you need to declare an `owners` attributes on your models like this : 
+```
+module.exports = class Item extends Model {
+  static config(app, Sequelize) {
+    return {
+      options: {
+        classMethods: {
+          associate: (models) => {
+            models.Item.belongsToMany(models.User, {
+              as: 'owners',
+              through: 'UserItem'//If many to many is needed
+            })
+          }
+        }
+      }
+    }
+  }
+}
+```
+If the model is under a trailpack and you don't have access to it you can add a model with same name on your project, 
+let do this for the model User witch is already in trailpack-permissions and trailpack-passport:
+ 
+```
+const ModelPassport = require('trailpack-passport/api/models/User')
+const ModelPermissions = require('../api/models/User')
+const Model = require('trails-model')
+module.exports = class User extends Model {
+  static config(app, Sequelize) {
+    return {
+      options: {
+        classMethods: {
+          associate: (models) => {
+            ModelPassport.config(app, Sequelize).options.classMethods.associate(models)
+            ModelPermissions.config(app, Sequelize).options.classMethods.associate(models)
+            models.User.belongsToMany(models.Item, {
+              as: 'items',
+              through: 'UserItem'
+            })
+          }
+        }
+      }
+    }
+  }
+  static schema(app, Sequelize) {
+      const UserTrailpackSchema = ModelPassport.schema(app, Sequelize)
+      let schema = {
+        //All your attributes here
+      }
+      return _.defaults(UserTrailpackSchema, schema)//merge passport attributs with your
+    }
+}
+```
+Like this you can add owners permissions on all models you want.
+
 #### Dynamically with PermissionService
 ```
 // Grant a permission to create 'modelName' to 'roleName'

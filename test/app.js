@@ -3,6 +3,7 @@ const _ = require('lodash')
 const smokesignals = require('smokesignals')
 const ModelPassport = require('trailpack-passport/api/models/User')
 const ModelPermissions = require('../api/models/User')
+const Model = require('trails-model')
 const Controller = require('trails-controller')
 
 const App = {
@@ -30,8 +31,36 @@ const App = {
                 associate: (models) => {
                   ModelPassport.config(app, Sequelize).options.classMethods.associate(models)
                   ModelPermissions.config(app, Sequelize).options.classMethods.associate(models)
+                  models.User.belongsToMany(models.Item, {
+                    as: 'items',
+                    through: 'UserItem'
+                  })
                 }
               }
+            }
+          }
+        }
+      },
+      Item: class Item extends Model {
+        static config(app, Sequelize) {
+          return {
+            options: {
+              classMethods: {
+                associate: (models) => {
+                  models.Item.belongsToMany(models.User, {
+                    as: 'owners',
+                    through: 'UserItem'
+                  })
+                }
+              }
+            }
+          }
+        }
+        static schema(app, Sequelize) {
+          return {
+            name: {
+              type: Sequelize.STRING,
+              allowNull: false
             }
           }
         }
@@ -136,11 +165,48 @@ const App = {
           type: 'route',
           name: 'fixture',
           publicName: 'fixture'
+        },{
+          type: 'model',
+          name: 'item',
+          checkOwners: true,
+          publicName: 'Item'
         }],
         permissions: [{
           RoleName: 'test',
           ResourceName: 'fixture',
           action: 'action'
+        }, {
+          RoleName: 'test',
+          ResourceName: 'item',
+          action: 'access'
+        }, {
+          RoleName: 'test',
+          ResourceName: 'item',
+          action: 'create'
+        }, {
+          RoleName: 'test',
+          ResourceName: 'item',
+          action: 'update'
+        }, {
+          RoleName: 'test',
+          ResourceName: 'item',
+          action: 'destroy'
+        }, {
+          RoleName: 'admin',
+          ResourceName: 'item',
+          action: 'access'
+        }, {
+          RoleName: 'admin',
+          ResourceName: 'item',
+          action: 'create'
+        }, {
+          RoleName: 'admin',
+          ResourceName: 'item',
+          action: 'update'
+        }, {
+          RoleName: 'admin',
+          ResourceName: 'item',
+          action: 'destroy'
         }]
       }
     },

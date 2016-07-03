@@ -33,7 +33,7 @@ module.exports = class PermissionService extends Service {
       RoleName: roleName,
       ResourceName: resourceName,
       action: actionName
-    }, {findOne: true})
+    }, {findOne: true, populate:'Resource'})
   }
 
   isUserAllowed(user, resourceName, actionName) {
