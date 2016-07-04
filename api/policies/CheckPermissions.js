@@ -30,15 +30,15 @@ module.exports = class CheckPermissionsPolicy extends Policy {
           res.forbidden(`You doesn't have permissions to ${action} ${modelName}`)
         }
         else {
-          if (action !== 'create' && permission[0].Resource.checkOwners === true) {
+          if (action !== 'create' && permission[0].relation === 'owner') {
             if (action === 'access' || !req.params.id) {
 
               next()//FIXME add where filter to the request to manage only owners items
             }
             else {
-              this.app.services.FootprintService.find(modelName, req.params.id, {populate: 'owners'}).then(items => {
-                for (let i = 0; i < items.owners.length; i++) {
-                  if (items.owners[i].id === user.id) {
+              this.app.services.FootprintService.find(modelName, req.params.id, {populate: 'owners'}).then(item => {
+                for (let i = 0; i < item.owners.length; i++) {
+                  if (item.owners[i].id === user.id) {
                     return next()
                   }
                 }

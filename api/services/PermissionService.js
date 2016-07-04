@@ -12,11 +12,12 @@ module.exports = class PermissionService extends Service {
     return this.app.services.FootprintService.find('resource', resourceName)
   }
 
-  grant(roleName, resourceName, actionName) {
+  grant(roleName, resourceName, actionName, relation) {
     return this.app.services.FootprintService.create('permission', {
       RoleName: roleName,
       ResourceName: resourceName,
-      action: actionName
+      action: actionName,
+      relation: relation || null
     }, {findOne: true})
   }
 
@@ -33,7 +34,7 @@ module.exports = class PermissionService extends Service {
       RoleName: roleName,
       ResourceName: resourceName,
       action: actionName
-    }, {findOne: true, populate:'Resource'})
+    }, {findOne: true})
   }
 
   isUserAllowed(user, resourceName, actionName) {

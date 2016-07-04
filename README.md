@@ -129,16 +129,20 @@ fixtures: {
 ```
 
 #### Owner permissions
-This trailpack can manage owner permissions on model instance, to do this you need to declare your model as resource like this : 
+This trailpack can manage owner permissions on model instance, to do this you need to declare your permissions like this : 
 ```
 {
-    type: 'model',
-    name: 'modelName',
-    checkOwners: true,
-    publicName: 'Model name'
+  RoleName: 'roleName',
+  relation: 'owner',
+  ResourceName: 'modelName',
+  action: 'create'
 }
 ```
-You can create this resource with sequelize model or with fixtures options.
+You can create this permisions with sequelize model, with fixtures options or with PermissionService like this : 
+```
+this.app.services.PermissionService.grant('roleName', 'modelName', 'create', 'owner').then(perm => () => {})
+.catch(err => this.app.log.error(err))
+```
 
 Then you need to declare an `owners` attributes on your models like this : 
 ```

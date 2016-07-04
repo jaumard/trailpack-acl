@@ -168,7 +168,6 @@ const App = {
         },{
           type: 'model',
           name: 'item',
-          checkOwners: true,
           publicName: 'Item'
         }],
         permissions: [{
@@ -177,18 +176,22 @@ const App = {
           action: 'action'
         }, {
           RoleName: 'test',
+          relation: 'owner',
           ResourceName: 'item',
           action: 'access'
         }, {
           RoleName: 'test',
+          relation: 'owner',
           ResourceName: 'item',
           action: 'create'
         }, {
           RoleName: 'test',
+          relation: 'owner',
           ResourceName: 'item',
           action: 'update'
         }, {
           RoleName: 'test',
+          relation: 'owner',
           ResourceName: 'item',
           action: 'destroy'
         }, {
@@ -197,14 +200,17 @@ const App = {
           action: 'access'
         }, {
           RoleName: 'admin',
+          relation: 'owner',
           ResourceName: 'item',
           action: 'create'
         }, {
           RoleName: 'admin',
+          relation: 'owner',
           ResourceName: 'item',
           action: 'update'
         }, {
           RoleName: 'admin',
+          relation: 'owner',
           ResourceName: 'item',
           action: 'destroy'
         }]

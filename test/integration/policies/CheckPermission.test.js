@@ -150,13 +150,23 @@ describe('CheckPermission', () => {
         })
     })
 
-    //TODO
-    it.skip('should allow to access Model Item with owner permission and return only items for the owner', done => {
-      adminAgent.get('/api/item')
+    //TODO not yet implemented
+    it.skip('should allow to access to Model Item with owner permission and return only items for the owner', done => {
+      agent.get('/api/item')
         .set('Accept', 'application/json') //set header for this test
         .expect(200)
         .end((err, res) => {
           assert.equal(res.body.length, 1)
+          done(err)
+        })
+    })
+
+    it('should allow to access to all Model Item with no owner permission and return only items for the owner', done => {
+      adminAgent.get('/api/item')
+        .set('Accept', 'application/json') //set header for this test
+        .expect(200)
+        .end((err, res) => {
+          assert.equal(res.body.length, 2)
           done(err)
         })
     })

@@ -42,11 +42,6 @@ module.exports = class Resource extends Model {
       description: {
         type: Sequelize.STRING,
         allowNull: true
-      },
-      checkOwners: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false,
-        allowNull: false
       }
     }
   }
