@@ -26,8 +26,8 @@ describe('PermissionService', () => {
   it('should grant permission by name', () => {
     return global.app.services.PermissionService.grant('admin', 'res3', 'destroy')
       .then(permission => {
-        assert.equal(permission.RoleName, 'admin')
-        assert.equal(permission.ResourceName, 'res3')
+        assert.equal(permission.roleName, 'admin')
+        assert.equal(permission.resourceName, 'res3')
         assert.equal(permission.action, 'destroy')
       })
   })
@@ -35,8 +35,8 @@ describe('PermissionService', () => {
   it('should return permission on check permission', () => {
     return global.app.services.PermissionService.isAllowed('admin', 'res3', 'destroy')
       .then(permission => {
-        assert.equal(permission.RoleName, 'admin')
-        assert.equal(permission.ResourceName, 'res3')
+        assert.equal(permission.roleName, 'admin')
+        assert.equal(permission.resourceName, 'res3')
         assert.equal(permission.action, 'destroy')
       })
   })

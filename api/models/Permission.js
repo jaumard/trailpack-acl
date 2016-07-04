@@ -9,16 +9,20 @@ module.exports = class Permission extends Model {
         classMethods: {
           associate: (models) => {
             models.Permission.belongsTo(models.Role, {
+              as: 'role',
               onDelete: 'CASCADE',
               foreignKey: {
                 primaryKey: true,
+                name: 'roleName',
                 allowNull: false
               }
             })
             models.Permission.belongsTo(models.Resource, {
+              as: 'resource',
               onDelete: 'CASCADE',
               foreignKey: {
                 primaryKey: true,
+                name: 'resourceName',
                 allowNull: false
               }
             })
