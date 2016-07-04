@@ -132,9 +132,9 @@ fixtures: {
 This trailpack can manage owner permissions on model instance, to do this you need to declare your permissions like this : 
 ```
 {
-  RoleName: 'roleName',
+  roleName: 'roleName',
   relation: 'owner',
-  ResourceName: 'modelName',
+  resourceName: 'modelName',
   action: 'create'
 }
 ```
@@ -197,6 +197,8 @@ module.exports = class User extends Model {
 }
 ```
 Like this you can add owners permissions on all models you want.
+
+WARNING ! Currently owner permissions are not supported for `accress` action and for `update` `destroy` actions on multiple items 
 
 #### Dynamically with PermissionService
 ```
