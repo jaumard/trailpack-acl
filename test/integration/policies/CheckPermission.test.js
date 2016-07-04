@@ -65,7 +65,7 @@ describe('CheckPermission', () => {
         .set('Accept', 'application/json') //set header for this test
         .expect(200)
         .end((err, res) => {
-          assert.equal(res.body.length, 10)
+          assert.equal(res.body.length, 18)
           done(err)
         })
     })
@@ -116,6 +116,83 @@ describe('CheckPermission', () => {
         .end((err, res) => {
           assert.equal(res.body.code, 'E_FORBIDDEN')
           assert.equal(res.body.message, 'You doesn\'t have permissions to access /failure/logged/permissions')
+          done(err)
+        })
+    })
+  })
+  describe('CheckOwnersPermissions', () => {
+    let adminAgent
+    before(done => {
+      adminAgent = supertest.agent(global.app.packs.express.server)
+
+      adminAgent
+        .post('/api/auth/local/register')
+        .set('Accept', 'application/json') //set header for this test
+        .send({username: 'admin', password: 'adminadmin', email: 'admin@admin.ad'})
+        .expect(200)
+        .end((err, res) => {
+          assert.equal(res.body.redirect, '/')
+          assert.equal(res.body.user.id, 2)
+
+          global.app.services.FootprintService.find('user', res.body.user.id).then(user => {
+            return global.app.services.PermissionService.addRoleToUser(user, 'admin')
+          }).then(user => {
+            return global.app.services.FootprintService.create('item', {
+              name: 'test'
+            }).then(item => {
+              return item.addOwner(user.id)
+            }).then(item => {
+              return global.app.services.FootprintService.create('item', {
+                name: 'test'
+              })
+            }).then(() => done()).catch(done)
+          })
+        })
+    })
+
+    //TODO not yet implemented
+    it.skip('should allow to access to Model Item with owner permission and return only items for the owner', done => {
+      agent.get('/api/item')
+        .set('Accept', 'application/json') //set header for this test
+        .expect(200)
+        .end((err, res) => {
+          assert.equal(res.body.length, 1)
+          done(err)
+        })
+    })
+
+    it('should allow to access to all Model Item with no owner permission and return only items for the owner', done => {
+      adminAgent.get('/api/item')
+        .set('Accept', 'application/json') //set header for this test
+        .expect(200)
+        .end((err, res) => {
+          assert.equal(res.body.length, 2)
+          done(err)
+        })
+    })
+
+    it('should allow to update Model Item with owner permission', done => {
+      adminAgent.put('/api/item/1')
+        .set('Accept', 'application/json') //set header for this test
+        .send({
+          name: 'testUpdated'
+        })
+        .expect(200)
+        .end((err, res) => {
+          assert.equal(res.body, 1)
+          done(err)
+        })
+    })
+    it('should not allow to update Model Item with owner permission on another user', done => {
+      agent.put('/api/item/1')
+        .set('Accept', 'application/json') //set header for this test
+        .send({
+          name: 'testUpdatedWrong'
+        })
+        .expect(403)
+        .end((err, res) => {
+          assert.equal(res.body.code, 'E_FORBIDDEN')
+          assert.equal(res.body.message, 'You doesn\'t have permissions to update item:1')
           done(err)
         })
     })

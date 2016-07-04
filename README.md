@@ -128,6 +128,78 @@ fixtures: {
   }
 ```
 
+#### Owner permissions
+This trailpack can manage owner permissions on model instance, to do this you need to declare your permissions like this : 
+```
+{
+  roleName: 'roleName',
+  relation: 'owner',
+  resourceName: 'modelName',
+  action: 'create'
+}
+```
+You can create this permisions with sequelize model, with fixtures options or with PermissionService like this : 
+```
+this.app.services.PermissionService.grant('roleName', 'modelName', 'create', 'owner').then(perm => () => {})
+.catch(err => this.app.log.error(err))
+```
+
+Then you need to declare an `owners` attributes on your models like this : 
+```
+module.exports = class Item extends Model {
+  static config(app, Sequelize) {
+    return {
+      options: {
+        classMethods: {
+          associate: (models) => {
+            models.Item.belongsToMany(models.User, {
+              as: 'owners',
+              through: 'UserItem'//If many to many is needed
+            })
+          }
+        }
+      }
+    }
+  }
+}
+```
+If the model is under a trailpack and you don't have access to it you can add a model with same name on your project, 
+let do this for the model User witch is already in trailpack-permissions and trailpack-passport:
+ 
+```
+const ModelPassport = require('trailpack-passport/api/models/User')
+const ModelPermissions = require('../api/models/User')
+const Model = require('trails-model')
+module.exports = class User extends Model {
+  static config(app, Sequelize) {
+    return {
+      options: {
+        classMethods: {
+          associate: (models) => {
+            ModelPassport.config(app, Sequelize).options.classMethods.associate(models)
+            ModelPermissions.config(app, Sequelize).options.classMethods.associate(models)
+            models.User.belongsToMany(models.Item, {
+              as: 'items',
+              through: 'UserItem'
+            })
+          }
+        }
+      }
+    }
+  }
+  static schema(app, Sequelize) {
+      const UserTrailpackSchema = ModelPassport.schema(app, Sequelize)
+      let schema = {
+        //All your attributes here
+      }
+      return _.defaults(UserTrailpackSchema, schema)//merge passport attributs with your
+    }
+}
+```
+Like this you can add owners permissions on all models you want.
+
+WARNING ! Currently owner permissions are not supported for `accress` action and for `update` `destroy` actions on multiple items 
+
 #### Dynamically with PermissionService
 ```
 // Grant a permission to create 'modelName' to 'roleName'

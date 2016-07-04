@@ -33,6 +33,7 @@ module.exports = class Permission extends Model {
   }
 
   static schema(app, Sequelize) {
+    const sEnum = Sequelize.ENUM
     return {
       action: {
         type: Sequelize.STRING,
@@ -46,6 +47,9 @@ module.exports = class Permission extends Model {
       description: {
         type: Sequelize.STRING,
         allowNull: true
+      },
+      relation: {
+        type: sEnum('owner')
       }
     }
   }
