@@ -13,6 +13,7 @@ module.exports = class Resource extends Model {
               as: 'permissions',
               onDelete: 'CASCADE',
               foreignKey: {
+                name: 'resourceName',
                 allowNull: false
               }
             })
