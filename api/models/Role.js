@@ -12,6 +12,7 @@ module.exports = class Role extends Model {
               as: 'permissions',
               onDelete: 'CASCADE',
               foreignKey: {
+                name: 'roleName',
                 allowNull: false
               }
             })

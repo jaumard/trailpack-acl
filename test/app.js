@@ -171,8 +171,8 @@ const App = {
           publicName: 'Item'
         }],
         permissions: [{
-          RoleName: 'test',
-          ResourceName: 'fixture',
+          roleName: 'test',
+          resourceName: 'fixture',
           action: 'action'
         }, {
           RoleName: 'test',

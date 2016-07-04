@@ -109,20 +109,20 @@ fixtures: {
       publicName: 'Model name'
     }],
     permissions: [{
-       RoleName: 'roleName',
-       ResourceName: 'modelName',
+       roleName: 'roleName',
+       resourceName: 'modelName',
        action: 'create'
      }, {
-       RoleName: 'roleName',
-       ResourceName: 'modelName',
+       roleName: 'roleName',
+       resourceName: 'modelName',
        action: 'update'
      }, {
-       RoleName: 'roleName',
-       ResourceName: 'modelName',
+       roleName: 'roleName',
+       resourceName: 'modelName',
        action: 'destroy'
      }, {
-       RoleName: 'roleName',
-       ResourceName: 'modelName',
+       roleName: 'roleName',
+       resourceName: 'modelName',
        action: 'access'
      }]
   }
