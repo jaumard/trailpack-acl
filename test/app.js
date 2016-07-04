@@ -175,43 +175,43 @@ const App = {
           resourceName: 'fixture',
           action: 'action'
         }, {
-          RoleName: 'test',
+          roleName: 'test',
           relation: 'owner',
-          ResourceName: 'item',
+          resourceName: 'item',
           action: 'access'
         }, {
-          RoleName: 'test',
+          roleName: 'test',
           relation: 'owner',
-          ResourceName: 'item',
+          resourceName: 'item',
           action: 'create'
         }, {
-          RoleName: 'test',
+          roleName: 'test',
           relation: 'owner',
-          ResourceName: 'item',
+          resourceName: 'item',
           action: 'update'
         }, {
-          RoleName: 'test',
+          roleName: 'test',
           relation: 'owner',
-          ResourceName: 'item',
+          resourceName: 'item',
           action: 'destroy'
         }, {
-          RoleName: 'admin',
-          ResourceName: 'item',
+          roleName: 'admin',
+          resourceName: 'item',
           action: 'access'
         }, {
-          RoleName: 'admin',
+          roleName: 'admin',
           relation: 'owner',
-          ResourceName: 'item',
+          resourceName: 'item',
           action: 'create'
         }, {
-          RoleName: 'admin',
+          roleName: 'admin',
           relation: 'owner',
-          ResourceName: 'item',
+          resourceName: 'item',
           action: 'update'
         }, {
-          RoleName: 'admin',
+          roleName: 'admin',
           relation: 'owner',
-          ResourceName: 'item',
+          resourceName: 'item',
           action: 'destroy'
         }]
       }
