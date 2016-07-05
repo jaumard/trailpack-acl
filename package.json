@@ -1,6 +1,6 @@
 {
   "name": "trailpack-acl",
-  "version": "1.0.0-beta-3",
+  "version": "1.0.0",
   "description": "Trailpack to manage permission on Models, Routes or whatever you want",
   "homepage": "https://github.com/jaumard/trailpack-acl",
   "author": {
