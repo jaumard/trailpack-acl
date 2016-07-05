@@ -32,6 +32,13 @@ module.exports = class CheckPermissionsPolicy extends Policy {
         else {
           if (action !== 'create' && permission[0].relation === 'owner') {
             if (action === 'access' || !req.params.id) {
+              if (action === 'update' || action === 'destroy') {
+                return next({
+                  message: 'Update and Destroy are not yet supported with permissions, please do your request manually',
+                  statusCode: 400,
+                  code: 'E_UNSUPPORTED'
+                })
+              }
               //Override populate criteria to filter items
               req.query.populate = [{model: this.app.orm.User, as: 'owners', required: true, where: {id: req.user.id}}]
               next()
