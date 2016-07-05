@@ -32,8 +32,9 @@ module.exports = class CheckPermissionsPolicy extends Policy {
         else {
           if (action !== 'create' && permission[0].relation === 'owner') {
             if (action === 'access' || !req.params.id) {
-
-              next()//FIXME add where filter to the request to manage only owners items
+              //Override populate criteria to filter items
+              req.query.populate = [{model: this.app.orm.User, as: 'owners', required: true, where: {id: req.user.id}}]
+              next()
             }
             else {
               this.app.services.FootprintService.find(modelName, req.params.id, {populate: 'owners'}).then(item => {

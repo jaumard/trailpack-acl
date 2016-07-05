@@ -198,7 +198,7 @@ module.exports = class User extends Model {
 ```
 Like this you can add owners permissions on all models you want.
 
-WARNING ! Currently owner permissions are not supported for `accress` action and for `update` `destroy` actions on multiple items 
+WARNING ! Currently owner permissions are not supported for `update` `destroy` actions on multiple items (with no ID) 
 
 #### Dynamically with PermissionService
 ```
