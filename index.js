@@ -11,7 +11,7 @@ module.exports = class PermissionsTrailpack extends Trailpack {
   validate () {
     if (!this.app.config.permissions) {
       return Promise.reject(
-        new Error('config.web.permissions is absent, check it\'s present and loaded under index.js'))
+        new Error('config.permissions is absent, check it\'s present and loaded under index.js'))
     }
     return lib.Validator.validateConfig(this.app.config.permissions)
   }
