@@ -50,12 +50,7 @@ module.exports = class CheckPermissionsPolicy extends Policy {
                 }
               }
               else {
-                req.query.populate = [{
-                  model: this.app.orm.User,
-                  as: 'owners',
-                  required: true,
-                  where: {id: req.user.id}
-                }]
+                req.query.populate = [{model: this.app.orm.User, as: 'owners', required: true, where: {id: req.user.id}}]
                 next()
               }
             }
