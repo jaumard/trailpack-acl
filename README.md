@@ -5,6 +5,8 @@
 [![Build status][ci-image]][ci-url]
 [![Dependency Status][daviddm-image]][daviddm-url]
 [![Code Climate][codeclimate-image]][codeclimate-url]
+[![Beerpay](https://beerpay.io/jaumard/trailpack-acl/make-wish.svg?style=flat)](https://beerpay.io/jaumard/trailpack-acl)
+[![Beerpay](https://beerpay.io/jaumard/trailpack-acl/badge.svg?style=flat)](https://beerpay.io/jaumard/trailpack-acl)
 
 :package: Trailpack to manage permissions (ACL) on your Trails projects
 
