@@ -42,7 +42,7 @@ module.exports = class CheckPermissionsPolicy extends Policy {
               //Override populate criteria to filter items
               if (modelName === 'user') {
                 if (req.params.id == user.id) {
-                  next()
+                  return next()
                 }
                 else {
                   res.forbidden(`You doesn't have permissions to ${action} ${modelName}`)
@@ -55,7 +55,7 @@ module.exports = class CheckPermissionsPolicy extends Policy {
                   required: true,
                   where: {id: req.user.id}
                 }]
-                next()
+                return next()
               }
             }
             else {
@@ -83,7 +83,7 @@ module.exports = class CheckPermissionsPolicy extends Policy {
             }
           }
           else {
-            next()
+            return next()
           }
         }
       }).catch(next)
@@ -94,7 +94,7 @@ module.exports = class CheckPermissionsPolicy extends Policy {
           res.forbidden(`You doesn't have permissions to ${action} ${modelName}`)
         }
         else {
-          next()
+          return next()
         }
       }).catch(next)
     }
@@ -117,7 +117,7 @@ module.exports = class CheckPermissionsPolicy extends Policy {
           res.forbidden(`You doesn't have permissions to access ${req.originalUrl}`)
         }
         else {
-          next()
+          return next()
         }
       }).catch(next)
     }
@@ -127,14 +127,13 @@ module.exports = class CheckPermissionsPolicy extends Policy {
           res.forbidden(`You doesn't have permissions to access ${req.originalUrl}`)
         }
         else {
-          next()
+          return next()
         }
       }).catch(next)
     }
     else {
       res.forbidden(`You doesn't have permissions to access ${req.originalUrl}`)
     }
-
   }
 }
 
