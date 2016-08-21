@@ -1,5 +1,6 @@
 # trailpack-acl
 [![Gitter][gitter-image]][gitter-url]
+[![Known Vulnerabilities][snyk-image]][snyk-url]
 [![NPM version][npm-image]][npm-url]
 [![NPM downloads][npm-download]][npm-url]
 [![Build status][ci-image]][ci-url]
@@ -259,6 +260,8 @@ FootprintController: [ 'CheckPermissions.checkModel' ] // To check permissions o
 [MIT](https://github.com/jaumard/trailpack-acl/blob/master/LICENSE)
 
 
+[snyk-image]: https://snyk.io/test/github/jaumard/trailpack-acl/badge.svg
+[snyk-url]: https://snyk.io/test/github/jaumard/trailpack-acl/
 [npm-image]: https://img.shields.io/npm/v/trailpack-acl.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/trailpack-acl
 [npm-download]: https://img.shields.io/npm/dt/trailpack-acl.svg
