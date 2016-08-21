@@ -15,27 +15,29 @@ describe('Resource', () => {
       publicName: 'Res1'
     }, {
       type: 'route',
-      name: 'res2' ,
+      name: 'res2',
       publicName: 'Res2'
     }, {
       type: 'controller',
       name: 'res3',
       publicName: 'Res3'
-    }, {
-      type: 'model',
-      name: 'role',
-      publicName: 'Role'
-    }, {
-      type: 'model',
-      name: 'permission',
-      publicName: 'Permission'
-    }]).then(roles => {
-      assert.equal(roles.length, 5)
-      assert.equal(roles[0].name, 'res1')
-      assert.equal(roles[1].name, 'res2')
-      assert.equal(roles[2].name, 'res3')
-      assert.equal(roles[3].name, 'role')
-      assert.equal(roles[4].name, 'permission')
+    }]).then(resources => {
+      assert.equal(resources.length, 3)
+      assert.equal(resources[0].name, 'res1')
+      assert.equal(resources[1].name, 'res2')
+      assert.equal(resources[2].name, 'res3')
+    })
+  })
+
+  it('should add models as Resources automatically', () => {
+    return global.app.orm.Resource.find({
+      where: {
+        name: 'user'
+      }
+    }).then(res => {
+      assert(res)
+      assert.equal(res.name, 'user')
+      assert.equal(res.type, 'model')
     })
   })
 })

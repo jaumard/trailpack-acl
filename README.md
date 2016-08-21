@@ -49,6 +49,7 @@ Then permissions config :
 // config/permissions.js
   defaultRole: null, //Role name to use for anonymous users
   userRoleFieldName: 'roles', // Name of the association field for Role under User model
+  modelsAsResources: true, // Set all your models as resources automatically when initialize the database
   //Initial data added when DB is empty
   fixtures: {
     roles: [],

@@ -1,0 +1,6 @@
+version: v1.5.2
+ignore: {}
+patch:
+  'npm:sequelize:20160718':
+    - trailpack-sequelize > sequelize:
+        patched: '2016-08-21T18:02:48.181Z'

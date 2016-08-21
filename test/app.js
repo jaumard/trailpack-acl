@@ -150,6 +150,7 @@ const App = {
     ],
     permissions: {
       defaultRole: 'public',
+      modelsAsResources: true,
       fixtures: {
         roles: [{
           name: 'test',
@@ -165,10 +166,6 @@ const App = {
           type: 'route',
           name: 'fixture',
           publicName: 'fixture'
-        },{
-          type: 'model',
-          name: 'item',
-          publicName: 'Item'
         }],
         permissions: [{
           roleName: 'test',
