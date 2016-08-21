@@ -41,7 +41,7 @@ module.exports = class CheckPermissionsPolicy extends Policy {
               }
               //Override populate criteria to filter items
               if (modelName === 'user') {
-                if (req.params.id == user.id) {
+                if (req.params.id === user.id) {
                   return next()
                 }
                 else {
@@ -60,7 +60,7 @@ module.exports = class CheckPermissionsPolicy extends Policy {
             }
             else {
               if (modelName === 'user') {
-                if (req.params.id == user.id) {
+                if (req.params.id === user.id) {
                   return next()
                 }
                 else {
