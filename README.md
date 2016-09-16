@@ -15,7 +15,7 @@
 
 This Trailpack work only with [trailpack-express](https://github.com/trailsjs/trailpack-express) as webserver 
 
-This Trailpack work only with [trailpack-sequelize](https://github.com/trailsjs/trailpack-sequelize) as ORM
+This Trailpack work with [trailpack-sequelize](https://github.com/trailsjs/trailpack-sequelize) or [trailpack-waterline](https://github.com/trailsjs/trailpack-waterline) as ORM
 
 ## Intallation
 With yo : 
@@ -61,9 +61,9 @@ Then permissions config :
   }
 ```
 
-You also need to have a User model like: 
+For Sequelize you also need to have a User model like: 
 
-```
+```javascript
 const Model = require('trails-model')
 const ModelPassport = require('trailpack-passport/api/models/User') // If you use trailpack-pasport
 const ModelPermissions = require('../api/models/User')
@@ -90,13 +90,40 @@ class User extends Model {
 }
 ```
 
+For Waterline you also need to have a User model like: 
+
+```javascript
+const ModelPassport = require('trailpack-passport/api/models/User')
+const ModelAcl = require('trailpack-acl/api/models/User')
+const _ = require('lodash')
+
+const Model = require('trails-model')
+
+module.exports = class User extends Model {
+  static config() {}
+
+  static schema(app) {
+    const PassportTrailpackSchema = ModelPassport.schema(app)
+    const AclTrailpackSchema = ModelAcl.schema(app)
+
+    let myschema = {
+      //All your attributes here
+    }
+
+    let schema = _.defaults(PassportTrailpackSchema, myschema)
+    schema = _.defaults(AclTrailpackSchema, schema)
+    return schema
+  }
+}
+```
+
 ## Usage
 
 ### Manage roles
-Use the native sequelize model under `this.app.orm.Roles`, if you need initial roles just add them on permissions config file under `fixtures.roles`.
+Use the native model under `this.app.orm.Roles`, if you need initial roles just add them on permissions config file under `fixtures.roles`.
 
 ### Manage resources
-Use the native sequelize model under `this.app.orm.Resources`, if you need initial resources just add them on permissions config file under `fixtures.resources`.
+Use the native model under `this.app.orm.Resources`, if you need initial resources just add them on permissions config file under `fixtures.resources`.
 
 ### Manage model permissions
 #### Static declaration under config
@@ -142,7 +169,7 @@ This trailpack can manage owner permissions on model instance, to do this you ne
   action: 'create'
 }
 ```
-You can create this permisions with sequelize model, with fixtures options or with PermissionService like this : 
+You can create this permisions with orm model, with fixtures options or with PermissionService like this : 
 ```
 this.app.services.PermissionService.grant('roleName', 'modelName', 'create', 'owner').then(perm => () => {})
 .catch(err => this.app.log.error(err))
