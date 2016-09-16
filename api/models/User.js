@@ -4,23 +4,37 @@ const Model = require('trails-model')
 
 module.exports = class User extends Model {
   static config(app, Sequelize) {
-    return {
-      options: {
-        classMethods: {
-          associate: (models) => {
-            models.User.belongsToMany(models.Role, {
-              as: 'roles',
-              through: 'UserRole'
-            })
+    let config = {}
+
+    if (app && app.config.database.orm === 'sequelize') {
+      config = {
+        options: {
+          classMethods: {
+            associate: (models) => {
+              models.User.belongsToMany(models.Role, {
+                as: 'roles',
+                through: 'UserRole'
+              })
+            }
           }
         }
       }
     }
+    return config
   }
 
   static schema(app, Sequelize) {
-    return {
+    let schema = {}
 
+    if (app.config.database.orm === 'waterline') {
+      schema = {
+        roles: {
+          collection: 'Role',
+          via: 'users'
+        }
+      }
     }
+
+    return schema
   }
 }
