@@ -66,7 +66,7 @@ You also need to have a User model like:
 ```
 const Model = require('trails-model')
 const ModelPassport = require('trailpack-passport/api/models/User') // If you use trailpack-pasport
-const ModelPermissions = require('../api/models/User')
+const ModelPermissions = require('trailpack-acl/api/models/User')
 class User extends Model {
   static config(app, Sequelize) {
     return {
