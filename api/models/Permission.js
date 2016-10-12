@@ -44,7 +44,6 @@ module.exports = class Permission extends Model {
       schema = {
         action: {
           type: 'string',
-          primaryKey: true,
           required: true
         },
         name: {
