@@ -179,32 +179,21 @@ describe('CheckPermission', () => {
     })
 
     it('should allow to update Model Item with owner permission', done => {
-      agent.get('/api/item/1')
-        .set('Accept', 'application/json') //set header for this test
-        .expect(200)
-        .end((err, res) => {
-          console.log(res.body)
-          assert.equal(res.body.length, 1)
-          assert.equal(res.body[0].id, 1)
-          assert.equal(res.body[0].name, 'test')
-          done(err)
-        })
-      /*agent.put('/api/item/1')
+      agent.put('/api/item/1')
         .set('Accept', 'application/json') //set header for this test
         .send({
           name: 'testUpdated'
         })
         .expect(200)
         .end((err, res) => {
-          if (Array.isArray(res.body)){
-            res.body = res.body[0]
+          if (global.app.config.database.orm === 'sequelize') {
+            assert.equal(res.body, 1)
           }
-          console.log(res.body)
-          assert.equal(res.body.id, 1)
-          assert.equal(res.body.name, 'testUpdated')
+          if (global.app.config.database.orm === 'waterline') {
+            assert.equal(res.body.name, 'testUpdated')
+          }
           done(err)
         })
-        */
     })
 
     it('should allow to access to all Model Item with no owner permission and return only items for the owner', done => {
@@ -212,7 +201,6 @@ describe('CheckPermission', () => {
         .set('Accept', 'application/json') //set header for this test
         .expect(200)
         .end((err, res) => {
-          console.log(res.body)
           assert.equal(res.body.length, 2)
           done(err)
         })
@@ -226,7 +214,6 @@ describe('CheckPermission', () => {
         })
         .expect(403)
         .end((err, res) => {
-          console.log(res.body)
           assert.equal(res.body.code, 'E_FORBIDDEN')
           done(err)
         })
