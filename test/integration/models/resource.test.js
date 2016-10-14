@@ -18,7 +18,7 @@ describe('Resource', () => {
       name: 'res2',
       publicName: 'Res2'
     }, {
-      type: 'controller',
+      type: 'other',
       name: 'res3',
       publicName: 'Res3'
     }]).then(resources => {
@@ -35,6 +35,9 @@ describe('Resource', () => {
         name: 'user'
       }
     }).then(res => {
+      if (Array.isArray(res)){
+        res = res[0]
+      }
       assert(res)
       assert.equal(res.name, 'user')
       assert.equal(res.type, 'model')

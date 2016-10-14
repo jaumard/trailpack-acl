@@ -9,7 +9,6 @@ describe('Permission', () => {
     assert(global.app.orm['Permission'])
   })
   it('should add Permissions', () => {
-
     return global.app.orm.Permission.bulkCreate([{
       roleName: 'admin',
       resourceName: 'res1',

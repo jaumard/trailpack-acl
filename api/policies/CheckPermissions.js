@@ -51,12 +51,18 @@ module.exports = class CheckPermissionsPolicy extends Policy {
                   }
                 }
                 else {
-                  req.query.populate = [{
-                    model: this.app.orm.User,
-                    as: 'owners',
-                    required: true,
-                    where: {id: req.user.id}
-                  }]
+                  if (this.app.config.database.orm === 'sequelize'){
+                    req.query.populate = [{
+                      model: this.app.orm.User,
+                      as: 'owners',
+                      required: true,
+                      where: {id: req.user.id}
+                    }]
+                  }
+                  else if (this.app.config.database.orm === 'waterline'){
+                    req.query.populate = 'owners'
+                    req.query.where = {id: req.user.id}
+                  }
                   return next()
                 }
               }
@@ -70,17 +76,20 @@ module.exports = class CheckPermissionsPolicy extends Policy {
                   }
                 }
                 else {
-                  this.app.services.FootprintService.find(modelName, req.params.id, {populate: 'owners'}).then(item => {
-                    for (let i = 0; i < item.owners.length; i++) {
-                      if (item.owners[i].id === user.id) {
-                        return next()
+                  this.app.services.FootprintService
+                    .find(modelName, req.params.id, {populate: 'owners'})
+                    .then(item => {
+                      for (let i = 0; i < item.owners.length; i++) {
+                        if (item.owners[i].id === user.id) {
+                          return next()
+                        }
                       }
-                    }
-                    res.forbidden(`You doesn't have permissions to ${action} ${modelName}:${req.params.id}`)
-                  }).catch(err => {
-                    this.app.log.error(err)
-                    res.serverError(err)
-                  })
+                      res.forbidden(`You doesn't have permissions ' +
+                      'to ${action} ${modelName}:${req.params.id}`)
+                    }).catch(err => {
+                      this.app.log.error(err)
+                      res.serverError(err)
+                    })
                 }
               }
             }
@@ -91,14 +100,15 @@ module.exports = class CheckPermissionsPolicy extends Policy {
         }).catch(next)
     }
     else if (defaultRole) {
-      this.app.services.PermissionService.isAllowed(defaultRole, modelName, action).then(permission => {
-        if (!permission || permission.length === 0) {
-          res.forbidden(`You doesn't have permissions to ${action} ${modelName}`)
-        }
-        else {
-          return next()
-        }
-      }).catch(next)
+      this.app.services.PermissionService
+        .isAllowed(defaultRole, modelName, action).then(permission => {
+          if (!permission || permission.length === 0) {
+            res.forbidden(`You doesn't have permissions to ${action} ${modelName}`)
+          }
+          else {
+            return next()
+          }
+        }).catch(next)
     }
     else {
       res.forbidden(`You doesn't have permissions to ${action} ${modelName}`)
@@ -114,24 +124,28 @@ module.exports = class CheckPermissionsPolicy extends Policy {
     if (!permissionsConfig) return next()
 
     if (user) {
-      this.app.services.PermissionService.isUserAllowed(user, permissionsConfig.resourceName, 'access').then(permission => {
-        if (!permission || permission.length === 0) {
-          res.forbidden(`You doesn't have permissions to access ${req.originalUrl}`)
-        }
-        else {
-          return next()
-        }
-      }).catch(next)
+      this.app.services.PermissionService
+        .isUserAllowed(user, permissionsConfig.resourceName, 'access')
+        .then(permission => {
+          if (!permission || permission.length === 0) {
+            res.forbidden(`You doesn't have permissions to access ${req.originalUrl}`)
+          }
+          else {
+            return next()
+          }
+        }).catch(next)
     }
     else if (defaultRole) {
-      this.app.services.PermissionService.isAllowed(defaultRole, permissionsConfig.resourceName, 'access').then(permission => {
-        if (!permission || permission.length === 0) {
-          res.forbidden(`You doesn't have permissions to access ${req.originalUrl}`)
-        }
-        else {
-          return next()
-        }
-      }).catch(next)
+      this.app.services.PermissionService
+        .isAllowed(defaultRole, permissionsConfig.resourceName, 'access')
+        .then(permission => {
+          if (!permission || permission.length === 0) {
+            res.forbidden(`You doesn't have permissions to access ${req.originalUrl}`)
+          }
+          else {
+            return next()
+          }
+        }).catch(next)
     }
     else {
       res.forbidden(`You doesn't have permissions to access ${req.originalUrl}`)

@@ -6,7 +6,7 @@ module.exports = class User extends Model {
   static config(app, Sequelize) {
     let config = {}
 
-    if (app && app.config.database.orm === 'sequelize') {
+    if (app.config.database.orm === 'sequelize') {
       config = {
         options: {
           classMethods: {

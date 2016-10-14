@@ -6,7 +6,7 @@ module.exports = class Permission extends Model {
   static config(app, Sequelize) {
     let config = {}
 
-    if (app && app.config.database.orm === 'sequelize') {
+    if (app.config.database.orm === 'sequelize') {
       config = {
         options: {
           classMethods: {
@@ -64,7 +64,7 @@ module.exports = class Permission extends Model {
         }
       }
     }
-    else if (app && app.config.database.orm === 'sequelize') {
+    else if (app.config.database.orm === 'sequelize') {
       const sEnum = Sequelize.ENUM
       schema = {
         action: {
