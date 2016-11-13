@@ -22,7 +22,7 @@ module.exports = {
       emit: [ ]
     },
     initialize: {
-      listen: ['trailpack:sequelize:initialized'],
+      listen: [['trailpack:sequelize:initialized','trailpack:waterline:initialized']],
       emit: [ ]
     }
   }

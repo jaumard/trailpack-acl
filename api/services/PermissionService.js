@@ -38,32 +38,90 @@ module.exports = class PermissionService extends Service {
   }
 
   isUserAllowed(user, resourceName, actionName) {
-    return this.app.services.FootprintService.findAssociation('user', user.id,
-      _.get(this.app.config, 'permissions.userRoleFieldName', 'roles'))
-      .then(roles => {
-        const promises = []
-        roles.forEach(role => {
-          promises.push(this.isAllowed(role.name, resourceName, actionName))
-        })
-        return Promise.all(promises).then(permissions => {
-          const perms = []
-          permissions.forEach(perm => {
-            if (perm != null) {
-              perms.push(perm)
-            }
+    if (this.app.config.database.orm === 'sequelize'){
+      return this.app.services.FootprintService.findAssociation('user', user.id,
+        _.get(this.app.config, 'permissions.userRoleFieldName', 'roles'))
+        .then(roles => {
+
+          const promises = []
+          roles.forEach(role => {
+            promises.push(this.isAllowed(role.name, resourceName, actionName))
           })
-          return Promise.resolve(perms)
+          return Promise.all(promises).then(permissions => {
+            const perms = []
+            permissions.forEach(perm => {
+              if (perm != null) {
+                perms.push(perm)
+              }
+            })
+            return Promise.resolve(perms)
+          })
+        })
+    }
+    else if (this.app.config.database.orm === 'waterline') {
+      return new Promise((done) => {
+        this.app.orm.User.findOne({where: {id: user.id}}).populate('roles').exec((err, dbuser) => {
+          if (!err){
+            const roles = dbuser.roles
+            const promises = []
+            roles.forEach(role => {
+              promises.push(this.isAllowed(role.name, resourceName, actionName))
+            })
+            Promise.all(promises).then(permissions => {
+              const perms = []
+              permissions.forEach(perm => {
+                if (perm != null) {
+                  perms.push(perm)
+                }
+              })
+              done(perms)
+            })
+          }
+          else {
+            done(err)
+          }
         })
       })
+    }
   }
 
   addRoleToUser(user, roleName) {
-    user.addRole(roleName)
-    return user.save()
+    if (this.app.config.database.orm === 'sequelize') {
+      user.addRole(roleName)
+      return user.save()
+    }
+    else if (this.app.config.database.orm === 'waterline') {
+      return new Promise((resolve, reject) => {
+        this.app.orm.User.findOne({where: {id: user.id}}).populate('roles').exec((err, dbuser) => {
+          if (!err){
+            dbuser.roles.add(roleName)
+            dbuser.save(() => resolve())
+          }
+          else {
+            reject(err)
+          }
+        })
+      })
+    }
   }
 
   removeRoleToUser(user, roleName) {
-    user.removeRole(roleName)
-    return user.save()
+    if (this.app.config.database.orm === 'sequelize') {
+      user.removeRole(roleName)
+      return user.save()
+    }
+    else if (this.app.config.database.orm === 'waterline') {
+      return new Promise((resolve, reject) => {
+        this.app.orm.User.findOne({where: {id: user.id}}).populate('roles').exec((err, dbuser) => {
+          if (!err){
+            dbuser.roles.remove(roleName)
+            dbuser.save(() => resolve())
+          }
+          else {
+            reject(err)
+          }
+        })
+      })
+    }
   }
 }
