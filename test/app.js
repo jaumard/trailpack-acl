@@ -223,8 +223,6 @@ const App = {
     },
     main: {
       packs: [
-        smokesignals.Trailpack,
-        require('trailpack-core'),
         require('trailpack-router'),
         require('trailpack-express'),
         require('trailpack-sequelize'),
