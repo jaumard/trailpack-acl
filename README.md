@@ -156,10 +156,7 @@ module.exports = class Item extends Model {
       options: {
         classMethods: {
           associate: (models) => {
-            models.Item.belongsToMany(models.User, {
-              as: 'owners',
-              through: 'UserItem'//If many to many is needed
-            })
+            app.services.PermissionService.setOwning(models.Item,models)
           }
         }
       }

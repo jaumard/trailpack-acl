@@ -31,10 +31,6 @@ const App = {
                 associate: (models) => {
                   ModelPassport.config(app, Sequelize).options.classMethods.associate(models)
                   ModelPermissions.config(app, Sequelize).options.classMethods.associate(models)
-                  models.User.belongsToMany(models.Item, {
-                    as: 'items',
-                    through: 'UserItem'
-                  })
                 }
               }
             }
@@ -47,10 +43,7 @@ const App = {
             options: {
               classMethods: {
                 associate: (models) => {
-                  models.Item.belongsToMany(models.User, {
-                    as: 'owners',
-                    through: 'UserItem'
-                  })
+                  app.services.PermissionService.setOwning(models.Item,models)
                 }
               }
             }
