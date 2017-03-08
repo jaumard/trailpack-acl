@@ -50,6 +50,7 @@
     "trails-controller": "^2.0.0"
   },
   "scripts": {
+    "snyk-auth": "snyk auth $SNYK_TOKEN",
     "test": "snyk test && eslint --fix . && mocha",
     "publishPatch": "npm version patch && npm run push",
     "publishMinor": "npm version minor && npm run push",
