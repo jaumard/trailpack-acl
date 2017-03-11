@@ -69,25 +69,25 @@ module.exports = class PermissionService extends Service {
 
   setOwning(model, models) {
     model.belongsToMany(models.User, {
-      as:          'owners',
-      through:     {
-        model:  models.ItemOwners,
+      as: 'owners',
+      through: {
+        model: models.ItemOwners,
         unique: false,
-        scope:  {
+        scope: {
           ownable: model.name
         }
       },
-      foreignKey:  'ownable_id',
+      foreignKey: 'ownable_id',
       constraints: false,
-    });
+    })
     models.User.belongsToMany(model, {
-      as:          'owners',
-      through:     {
-        model:  models.ItemOwners,
+      as: 'owners',
+      through: {
+        model: models.ItemOwners,
         unique: false
       },
-      foreignKey:  'owner_id',
+      foreignKey: 'owner_id',
       constraints: false,
-    });
+    })
   }
 }
