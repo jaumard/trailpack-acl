@@ -198,8 +198,7 @@ describe('CheckPermission', () => {
         })
     })
 
-    //TODO currently not working because sequelize doesn't support include in update/destroy
-    it.skip('should allow to bulk update Model Item with owner permission', done => {
+    it('should allow to bulk update Model Item with owner permission', done => {
       agent.put('/api/item')
         .set('Accept', 'application/json') //set header for this test
         .send({
@@ -212,8 +211,7 @@ describe('CheckPermission', () => {
         })
     })
 
-    //TODO currently not working because sequelize doesn't support include in update/destroy
-    it.skip('should allow to bulk update Model Item with owner permission on another user', done => {
+    it('should allow to bulk update Model Item with owner permission on another user', done => {
       adminAgent.put('/api/item')
         .set('Accept', 'application/json') //set header for this test
         .send({

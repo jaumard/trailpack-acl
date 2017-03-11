@@ -33,14 +33,29 @@ module.exports = class CheckPermissionsPolicy extends Policy {
           if (action !== 'create' && permission[0].relation === 'owner') {
             if (action === 'access' || !req.params.id) {
               if (action === 'update' || action === 'destroy') {
-                return next({
-                  message: 'Update and Destroy are not yet supported with permissions, please do your request manually',
-                  statusCode: 400,
-                  code: 'E_UNSUPPORTED'
+                this.app.services.FootprintService.find(modelName, {}, {
+                  populate: [{
+                    model: this.app.orm.User,
+                    as: 'owners',
+                    required: true,
+                    where: {id: req.user.id}
+                  }]
+                }).then(items => {
+                  if (items.length > 1000) this.app.log.warning('Caution, bulk update for big model set can be unperformant')
+                  const ids         = items.reduce((acc, val) => {
+                    acc.push(val.id)
+                    return acc
+                  }, [])
+                  req.query.where = {
+                    id: {$in: ids}
+                  }
+                  return next()
+                }).catch(err => {
+                  this.app.log.error(err)
+                  res.serverError(err)
                 })
               }
-              //Override populate criteria to filter items
-              if (modelName === 'user') {
+              else if (modelName === 'user') {
                 if (req.params.id === user.id) {
                   return next()
                 }
