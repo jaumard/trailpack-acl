@@ -41,7 +41,7 @@ module.exports = class CheckPermissionsPolicy extends Policy {
                     where: {id: req.user.id}
                   }]
                 }).then(items => {
-                  if (items.length > 1000) this.app.log.warning('Caution, bulk update for big model set can be unperformant')
+                  if (items.length > 1000) this.app.log.warning('Caution, bulk update/destroy for large model sets can be unperformant')
                   const ids         = items.reduce((acc, val) => {
                     acc.push(val.id)
                     return acc
