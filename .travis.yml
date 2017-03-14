@@ -1,71 +1,13 @@
 language: node_js
-matrix:
-  include:
-    - os: linux
-      addons:
-        # Required to compile native modules on newer Node.js versions
-        apt:
-          sources:
-          - ubuntu-toolchain-r-test
-          packages:
-          - gcc-4.8
-          - g++-4.8
-      env:
-        - CXX=g++-4.8
-      node_js:
-        - 4
-    - os: linux
-      addons:
-        # Required to compile native modules on newer Node.js versions
-        apt:
-          sources:
-          - ubuntu-toolchain-r-test
-          packages:
-          - gcc-4.8
-          - g++-4.8
-      env:
-        - CXX=g++-4.8
-      node_js:
-        - 5
-    - os: linux
-      addons:
-        # Required to compile native modules on newer Node.js versions
-        apt:
-          sources:
-          - ubuntu-toolchain-r-test
-          packages:
-          - gcc-4.8
-          - g++-4.8
-      env:
-        - CXX=g++-4.8
-      node_js:
-        - 6
-    - os: linux
-      addons:
-        # Required to compile native modules on newer Node.js versions
-        apt:
-          sources:
-          - ubuntu-toolchain-r-test
-          packages:
-          - gcc-4.8
-          - g++-4.8
-      env:
-        - CXX=g++-4.8
-      node_js:
-        - 7
-    - os: osx
-      node_js:
-        - 4
-    - os: osx
-      node_js:
-        - 5
-    - os: osx
-      node_js:
-        - 6
-    - os: osx
-      node_js:
-        - 7
-
+os:
+  - linux
+node_js:
+  - 4
+  - 5
+  - 6
+  - 7
+before_script:
+  - npm run snyk-auth
 notifications:
   email: false
   webhooks:
