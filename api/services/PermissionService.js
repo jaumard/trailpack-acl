@@ -58,13 +58,17 @@ module.exports = class PermissionService extends Service {
   }
 
   addRoleToUser(user, roleName) {
-    user.addRole(roleName)
-    return user.save()
+    return Promise.all([
+      user.addRole(roleName),
+      user.save()
+    ])
   }
 
   removeRoleToUser(user, roleName) {
-    user.removeRole(roleName)
-    return user.save()
+    return Promise.all([
+      user.removeRole(roleName),
+      user.save()
+    ])
   }
 
   setOwning(model, models) {
