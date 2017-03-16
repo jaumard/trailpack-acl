@@ -13,11 +13,6 @@ module.exports = class ItemOwners extends Model {
 
   static schema(app, Sequelize) {
     return {
-      id: {
-        type: Sequelize.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-      },
       owner_id: {
         type: Sequelize.INTEGER,
         unique: 'item_owner_ownable'
