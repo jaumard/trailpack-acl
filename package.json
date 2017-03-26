@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "eslint": "^3.12.2",
-    "eslint-config-trails": "^2.0.4",
+    "eslint-config-trails": "^3.0.0",
     "express": "^4.14.0",
     "mocha": "^3.2.0",
     "passport-local": "^1.0.0",
