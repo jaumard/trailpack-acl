@@ -62,11 +62,13 @@ module.exports = class PermissionService extends Service {
       return new Promise((done) => {
         this.app.orm.User.findOne({where: {id: user.id}}).populate('roles').exec((err, dbuser) => {
           if (!err){
-            const roles = dbuser.roles
             const promises = []
-            roles.forEach(role => {
-              promises.push(this.isAllowed(role.name, resourceName, actionName))
-            })
+            if(dbuser){
+              const roles = dbuser.roles
+              roles.forEach(role => {
+                promises.push(this.isAllowed(role.name, resourceName, actionName))
+              })
+            }
             Promise.all(promises).then(permissions => {
               const perms = []
               permissions.forEach(perm => {
