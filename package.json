@@ -44,7 +44,7 @@
     "trailpack-express": "^2.0.0",
     "trailpack-footprints": "^2.0.0",
     "trailpack-passport": "^2.0.0",
-    "trailpack-router": "^2.1.0",
+    "trailpack-router": "^3.1.1",
     "trailpack-sequelize": "^2.0.0",
     "trails": "2.0.2",
     "trails-controller": "^2.0.0"
