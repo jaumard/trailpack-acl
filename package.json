@@ -42,7 +42,7 @@
     "sqlite3": "^3.1.8",
     "supertest": "3.0.0",
     "trailpack-express": "^2.0.0",
-    "trailpack-footprints": "^2.0.0",
+    "trailpack-footprints": "^3.0.1",
     "trailpack-passport": "^2.0.0",
     "trailpack-router": "^2.1.0",
     "trailpack-sequelize": "^2.0.0",
