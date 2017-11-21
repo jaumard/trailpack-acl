@@ -46,7 +46,7 @@
     "trailpack-passport": "^2.0.0",
     "trailpack-router": "^2.1.0",
     "trailpack-sequelize": "^2.0.0",
-    "trails": "2.0.2",
+    "trails": "3.0.3",
     "trails-controller": "^2.0.0"
   },
   "scripts": {
