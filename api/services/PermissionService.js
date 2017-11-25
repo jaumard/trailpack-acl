@@ -58,12 +58,40 @@ module.exports = class PermissionService extends Service {
   }
 
   addRoleToUser(user, roleName) {
-    user.addRole(roleName)
-    return user.save()
+    return Promise.all([
+      user.addRole(roleName),
+      user.save()
+    ])
   }
 
   removeRoleToUser(user, roleName) {
-    user.removeRole(roleName)
-    return user.save()
+    return Promise.all([
+      user.removeRole(roleName),
+      user.save()
+    ])
+  }
+
+  setOwning(model, models) {
+    model.belongsToMany(models.User, {
+      as: 'owners',
+      through: {
+        model: models.ItemOwners,
+        unique: false,
+        scope: {
+          ownable: model.name
+        }
+      },
+      foreignKey: 'ownable_id',
+      constraints: false,
+    })
+    models.User.belongsToMany(model, {
+      as: 'owners',
+      through: {
+        model: models.ItemOwners,
+        unique: false
+      },
+      foreignKey: 'owner_id',
+      constraints: false,
+    })
   }
 }

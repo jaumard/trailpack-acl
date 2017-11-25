@@ -1,4 +1,6 @@
 # trailpack-acl
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/jaumard/trailpack-acl.svg)](https://greenkeeper.io/)
 [![Gitter][gitter-image]][gitter-url]
 [![Known Vulnerabilities][snyk-image]][snyk-url]
 [![NPM version][npm-image]][npm-url]
@@ -148,7 +150,8 @@ this.app.services.PermissionService.grant('roleName', 'modelName', 'create', 'ow
 .catch(err => this.app.log.error(err))
 ```
 
-Then you need to declare an `owners` attributes on your models like this : 
+Then you need to have declare a relation with User table and an alias called 'owners'
+We offer a util method for quickly creating an n:m relation between user and items. Is accessible from `PermissionService.setOwning([this_model],[all_models])`
 ```
 module.exports = class Item extends Model {
   static config(app, Sequelize) {
@@ -156,9 +159,11 @@ module.exports = class Item extends Model {
       options: {
         classMethods: {
           associate: (models) => {
+            app.services.PermissionService.setOwning(models.Item,models)
+            // OR create manually a relation
             models.Item.belongsToMany(models.User, {
               as: 'owners',
-              through: 'UserItem'//If many to many is needed
+              through: 'UserItem' //If many to many is needed
             })
           }
         }
