@@ -1,6 +1,6 @@
 {
   "name": "trailpack-acl",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Trailpack to manage permission on Models, Routes or whatever you want",
   "homepage": "https://github.com/jaumard/trailpack-acl",
   "author": {
@@ -42,7 +42,7 @@
     "supertest": "^3.0.0",
     "trailpack-express": "^2.0.7",
     "trailpack-footprints": "^2.0.0",
-    "trailpack-passport": "^2.2.4",
+    "trailpack-passport": "^2.2.5",
     "trailpack-router": "^2.1.0",
     "trailpack-sequelize": "^2.0.0",
     "trails": "2.0.2",
