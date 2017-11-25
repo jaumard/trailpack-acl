@@ -1389,7 +1389,7 @@ items@2.x.x:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/items/-/items-2.1.1.tgz#8bd16d9c83b19529de5aea321acaada78364a198"
 
-joi@^10.0.5, joi@^10.1.0, joi@^10.2.2, joi@^10.4.1:
+joi@^10.0.5, joi@^10.1.0, joi@^10.2.2, joi@^10.4.1, joi@^10.6.0:
   version "10.6.0"
   resolved "https://registry.yarnpkg.com/joi/-/joi-10.6.0.tgz#52587f02d52b8b75cdb0c74f0b164a191a0e1fc2"
   dependencies:
@@ -2538,9 +2538,9 @@ sprintf-js@~1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
 
-sqlite3@^3.1.13:
-  version "3.1.13"
-  resolved "https://registry.yarnpkg.com/sqlite3/-/sqlite3-3.1.13.tgz#d990a05627392768de6278bafd1a31fdfe907dd9"
+sqlite3@3.1.12:
+  version "3.1.12"
+  resolved "https://registry.yarnpkg.com/sqlite3/-/sqlite3-3.1.12.tgz#2b3a14b17162e39e8aa6e1e2487a41d0795396d8"
   dependencies:
     nan "~2.7.0"
     node-pre-gyp "~0.6.38"
@@ -2856,7 +2856,7 @@ trails-service@^2, trails-service@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/trails-service/-/trails-service-2.0.0.tgz#c37ecff1d91013ad9136fd92e585e91adcd3f019"
 
-trails@^2.0.2:
+trails@2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/trails/-/trails-2.0.2.tgz#58b4b4bc0f49f18a279a0aa3afce813ab4594431"
   dependencies:
