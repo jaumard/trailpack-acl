@@ -23,7 +23,7 @@
     "acl"
   ],
   "dependencies": {
-    "joi": "^10.6.0",
+    "joi": "^13.1.0",
     "lodash": "^4.17.4",
     "trailpack": "^2.1.3",
     "trails-model": "^2.0.1",
