@@ -1,6 +1,6 @@
 'use strict'
 
-const Policy = require('trails-policy')
+const Policy = require('trails/policy')
 const _ = require('lodash')
 
 /**
@@ -9,7 +9,7 @@ const _ = require('lodash')
  */
 module.exports = class CheckPermissionsPolicy extends Policy {
   checkModel(req, res, next) {
-    const modelName = req.params.model
+    const modelName = req.params.model || req.params.parentModel
     const user = req.user
     const defaultRole = this.app.config.permissions.defaultRole
 

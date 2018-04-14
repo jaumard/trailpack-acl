@@ -4,7 +4,7 @@ const Model = require('trails/model')
 
 /**
  * @module ItemOwners
- * @description TODO document Model
+ * @description ItemOwners model
  */
 module.exports = class ItemOwners extends Model {
 

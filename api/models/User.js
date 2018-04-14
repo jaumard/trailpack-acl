@@ -1,6 +1,6 @@
 'use strict'
 
-const Model = require('trails-model')
+const Model = require('trails/model')
 
 module.exports = class User extends Model {
   static config(app, Sequelize) {

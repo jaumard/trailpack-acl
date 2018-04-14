@@ -6,8 +6,7 @@ node_js:
   - 5
   - 6
   - 7
-before_script:
-  - npm run snyk-auth
+  - 8
 notifications:
   email: false
   webhooks:
