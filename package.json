@@ -35,7 +35,7 @@
     "passport-local": "^1.0.0",
     "smokesignals": "^2.1.1",
     "sqlite3": "^4.0.0",
-    "supertest": "^3.0.0",
+    "supertest": "^4.0.1",
     "trailpack-express": "^2.0.7",
     "trailpack-footprints": "^2.0.0",
     "trailpack-passport": "^2.2.5",
