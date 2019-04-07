@@ -31,7 +31,7 @@
     "eslint": "^4.19.1",
     "eslint-config-trails": "^3.1.0",
     "express": "^4.16.3",
-    "mocha": "^5.1.0",
+    "mocha": "^6.1.1",
     "passport-local": "^1.0.0",
     "smokesignals": "^2.1.1",
     "sqlite3": "^4.0.0",
